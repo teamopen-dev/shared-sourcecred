@@ -8,7 +8,7 @@ steps:
   - name: clone
     image: docker:git
     commands:
-      - git clone --depth 1 https://github.com/sfosc/sourcecred.git .
+      - git clone --depth 1 https://github.com/teamopen-dev/shared-sourcecred.git .
       - git submodule init
       - git submodule update
 
@@ -33,12 +33,12 @@ steps:
       - echo "$SSH_DEPLOY_KEY" > ~/.ssh/id_rsa && chmod 0600 ~/.ssh/id_rsa
       - cd site
       - git init
-      - git config user.email "bot@sfosc.org"
+      - git config user.email "deploy-bot@teamopen.dev"
       - git config user.name "Deployment Bot"
       - git checkout -b gh-pages
       - git add --all
       - git commit -m "Publishing to gh-pages `date`"
-      - git push -f git@github.com:sfosc/sourcecred.git gh-pages
+      - git push -f git@github.com:teamopen-dev/shared-sourcecred.git gh-pages
 
 trigger:
   branch:
