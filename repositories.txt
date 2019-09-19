@@ -1,4 +1,1 @@
-@sfosc
-sfosc/sfosc
-sfosc/wizard
-sfosc/sourcecred
+@teamopen-dev
