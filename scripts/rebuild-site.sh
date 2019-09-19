@@ -23,18 +23,6 @@ die() {
 [ ! -e "repositories.txt" ] && die "A repositories.txt file is expected in the repository root."
 REPOS="$(cat repositories.txt)"
 
-# Rebuild weight overrides from root toml file.
-WEIGHTS_OPT=""
-[ -e ".weights.json" ] && rm .weights.json
-if [ -e "weights.toml" ]; then
-	echo "Converting weights.toml"
-	cd mkweights
-	yarn --production
-	cd ..
-	cat weights.toml | node mkweights > .weights.json
-	WEIGHTS_OPT="--weights ${toplevel}/.weights.json"
-fi
-
 # Rebuild sourcecred dependencies.
 echo "Building SourceCred binaries."
 cd "${toplevel}/sourcecred"
@@ -46,7 +34,7 @@ yarn -s backend --output-path "${SOURCECRED_BIN}"
 echo "Loading repository data."
 SOURCECRED_DIRECTORY="${toplevel}/sourcecred_data"
 for repo in $REPOS; do
-	SOURCECRED_DIRECTORY="${SOURCECRED_DIRECTORY}" node "${SOURCECRED_BIN}/sourcecred.js" load "${repo}" $WEIGHTS_OPT
+	SOURCECRED_DIRECTORY="${SOURCECRED_DIRECTORY}" node "${SOURCECRED_BIN}/sourcecred.js" load "${repo}"
 done
 
 # Create static website.
