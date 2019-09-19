@@ -1,1 +1,3 @@
 @teamopen-dev
+@tauri-apps
+@sfosc
